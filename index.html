@@ -35,7 +35,7 @@
     </div>
 
     <div class="steps">
-      <div class="step"><div class="ico">🧟</div><b>1라운드</b><span>좀비 들판에서 좀비를 만나면 문제가 나와요.<br>나는 <b style="display:inline;font-size:13px">3문제</b> 맞히기!</span></div>
+      <div class="step"><div class="ico">🧟</div><b>1라운드</b><span>들판에서 좀비·슬라임·버섯 몬스터를 만나면 문제가 나와요.<br>나는 <b style="display:inline;font-size:13px">3문제</b> 맞히기!</span></div>
       <div class="step"><div class="ico">🐗</div><b>파괴수 보스전</b><span>모둠원 모두 3문제를 맞히면<br>철 칼·철 갑옷으로 함께 공격!</span></div>
       <div class="step"><div class="ico">🧟‍♂️</div><b>2라운드</b><span>다시 좀비 들판으로!<br>각자 3문제 더 맞히기</span></div>
       <div class="step"><div class="ico">🐉</div><b>드래곤 보스전</b><span>다이아몬드 칼·갑옷으로<br>모둠원과 함께 드래곤을 물리쳐요</span></div>
@@ -46,15 +46,15 @@
       <div class="card">
         <h3 style="margin-top:0">📜 규칙</h3>
         <ul class="rule-list">
-          <li>좀비는 피하지 말고 <b>만나야</b> 문제를 풀 수 있어요.</li>
+          <li>몬스터는 피하지 말고 <b>만나야</b> 문제를 풀 수 있어요. 맞히면 <b>팡!</b> 하고 터지고, 연속으로 맞히면 콤보!</li>
           <li>틀리면 하트가 <b>2칸</b> 줄어요. 하트가 다 없어지면 잠깐 쉬었다가 다시 시작해요.</li>
           <li>한 사람은 라운드마다 <b>3문제까지만</b> 맞혀요. 모둠원 <b>모두</b> 3문제를 맞혀야 보스가 나타나요.</li>
-          <li>3문제를 먼저 끝냈다면 <b style="color:#d6b4ff">보라색 강한 좀비</b>를 만나 <b>보너스 문제</b>에 도전! 틀려도 하트는 그대로예요.</li>
+          <li>3문제를 먼저 끝냈다면 <b style="color:#ffd34d">반짝이는 황금 슬라임</b>을 만나 <b>보너스 문제</b>에 도전! 틀려도 하트는 그대로예요.</li>
           <li>보너스 문제 3개를 맞힐 때마다 아이템 1개 (라운드마다 2개까지)</li>
         </ul>
         <h3>🎮 조작</h3>
         <ul class="rule-list">
-          <li>움직이기: <b>방향키</b> 또는 <b>W A S D</b>, 화면을 <b>클릭</b>해도 그쪽으로 걸어가요</li>
+          <li>움직이기: <b>방향키</b> 또는 <b>W A S D</b>, 화면을 <b>클릭</b>하거나 왼쪽 아래 <b>조이스틱</b>을 끌어도 돼요</li>
           <li>보스전 공격: <b>스페이스바</b> 또는 [공격] 버튼 · 피하기: <b>↓ / S</b> 또는 [피하기] 버튼</li>
           <li>아이템 쓰기: 숫자키 <b>1~4</b> 또는 아이템 칸 클릭</li>
         </ul>
@@ -68,13 +68,13 @@
           <tr><td>🧪</td><td><b>힘의 물약</b> (2라운드)</td><td>15초 동안 공격력이 2배!</td></tr>
         </table>
         <p class="goal" style="margin-top:12px">⚠ 보스가 빨갛게 번쩍이면 곧 공격해요. 그때 <b>피하기</b>를 누르면 피할 수 있어요!</p>
-        <div style="text-align:center;margin-top:8px"><canvas id="lobbyChar" width="120" height="130"></canvas></div>
       </div>
     </div>
 
     <div class="card wait-box">
       <div class="jua" style="font-size:24px">선생님이 시작하기를 기다리는 중<span class="dots"></span></div>
-      <div class="goal">우리 모둠에 들어온 친구</div>
+      <canvas id="lobby3d" width="720" height="250"></canvas>
+      <div class="goal">우리 모둠에 들어온 친구 (가운데 앞이 나)</div>
       <div class="mates" id="lobbyMates"></div>
     </div>
   </div>
@@ -84,8 +84,10 @@
 <section id="play" class="screen hidden">
   <div class="play-wrap">
     <div class="stage">
+      <canvas id="gl" width="960" height="540"></canvas>
       <canvas id="cv" width="960" height="540"></canvas>
       <div class="banner hidden" id="banner"></div>
+      <div class="joy hidden" id="joy"><div class="knob" id="joyKnob"></div></div>
       <div class="big-msg hidden" id="bigMsg"><h2 id="bigTitle"></h2><p id="bigSub"></p></div>
       <div class="boss-ctrl hidden" id="bossCtrl">
         <button class="btn blue" id="dodgeBtn">⬇ 피하기</button>

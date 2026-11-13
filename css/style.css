@@ -55,7 +55,8 @@ button { font-family: inherit; cursor: pointer; }
 #play { padding: 8px; }
 .play-wrap { width: min(1200px, 100%); display: grid; grid-template-columns: 1fr 230px; gap: 10px; }
 .stage { position: relative; background: #000; border: 4px solid #12140f; border-radius: 6px; overflow: hidden; }
-#cv { display: block; width: 100%; height: auto; image-rendering: pixelated; touch-action: none; }
+#gl { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; image-rendering: pixelated; }
+#cv { position: absolute; left: 0; top: 0; width: 100%; height: 100%; touch-action: none; }
 .side { display: flex; flex-direction: column; gap: 10px; }
 .side .card { padding: 12px; }
 .side h3 { margin: 0 0 8px; font-size: 18px; }
@@ -115,3 +116,7 @@ button.slot:not(.empty):hover { outline: 3px solid var(--gold); }
   .two { grid-template-columns: 1fr; }
   .skins { grid-template-columns: repeat(3, 1fr); }
 }
+
+#lobby3d { width: 100%; max-width: 720px; height: auto; border-radius: 8px; border: 3px solid #12140f; margin: 10px auto 4px; display: block; }
+.joy { position: absolute; left: 18px; bottom: 18px; width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.18); border: 3px solid rgba(255,255,255,.45); touch-action: none; z-index: 5; }
+.joy .knob { position: absolute; left: 50%; top: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px; border-radius: 50%; background: rgba(255,255,255,.75); box-shadow: 0 3px 0 rgba(0,0,0,.3); pointer-events: none; }
