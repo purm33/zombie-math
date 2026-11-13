@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>좀비 수학 대작전</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 입장 -->
+<section id="join" class="screen hidden">
+  <h1 class="title">좀비 수학 대작전</h1>
+  <div class="subtitle">좀비를 만나 문제를 풀고, 모둠원과 함께 보스를 물리쳐라!</div>
+  <div class="card join-card">
+    <div class="label">① 우리 모둠</div>
+    <div class="grid-btns" id="groupBtns"></div>
+    <div class="label">② 내 번호</div>
+    <input id="numInput" class="num-input" type="number" inputmode="numeric" placeholder="번호">
+    <div class="err" id="joinErr"></div>
+    <button class="btn green" id="joinBtn" style="width:100%;margin-top:6px">입장하기</button>
+  </div>
+</section>
+
+<!-- 대기실 + 게임 설명 -->
+<section id="lobby" class="screen hidden">
+  <div class="lobby-wrap">
+    <div class="lobby-head">
+      <h1 class="jua" style="margin:0;font-size:34px;color:#9cf06a">좀비 수학 대작전 · 게임 설명</h1>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span class="unit-badge" id="lobbyUnit">단원</span>
+        <span class="me-badge" id="lobbyMe"></span>
+        <button class="btn small gray" id="leaveBtn">번호 바꾸기</button>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="ico">🧟</div><b>1라운드</b><span>좀비 들판에서 좀비를 만나면 문제가 나와요.<br>나는 <b style="display:inline;font-size:13px">3문제</b> 맞히기!</span></div>
+      <div class="step"><div class="ico">🐗</div><b>파괴수 보스전</b><span>모둠원 모두 3문제를 맞히면<br>철 칼·철 갑옷으로 함께 공격!</span></div>
+      <div class="step"><div class="ico">🧟‍♂️</div><b>2라운드</b><span>다시 좀비 들판으로!<br>각자 3문제 더 맞히기</span></div>
+      <div class="step"><div class="ico">🐉</div><b>드래곤 보스전</b><span>다이아몬드 칼·갑옷으로<br>모둠원과 함께 드래곤을 물리쳐요</span></div>
+      <div class="step"><div class="ico">🏆</div><b>승리!</b><span>드래곤을 이기면 모둠 순위가 나오고<br>특별 스킨을 하나 골라요</span></div>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <h3 style="margin-top:0">📜 규칙</h3>
+        <ul class="rule-list">
+          <li>좀비는 피하지 말고 <b>만나야</b> 문제를 풀 수 있어요.</li>
+          <li>틀리면 하트가 <b>2칸</b> 줄어요. 하트가 다 없어지면 잠깐 쉬었다가 다시 시작해요.</li>
+          <li>한 사람은 라운드마다 <b>3문제까지만</b> 맞혀요. 모둠원 <b>모두</b> 3문제를 맞혀야 보스가 나타나요.</li>
+          <li>3문제를 먼저 끝냈다면 <b style="color:#d6b4ff">보라색 강한 좀비</b>를 만나 <b>보너스 문제</b>에 도전! 틀려도 하트는 그대로예요.</li>
+          <li>보너스 문제 3개를 맞힐 때마다 아이템 1개 (라운드마다 2개까지)</li>
+        </ul>
+        <h3>🎮 조작</h3>
+        <ul class="rule-list">
+          <li>움직이기: <b>방향키</b> 또는 <b>W A S D</b>, 화면을 <b>클릭</b>해도 그쪽으로 걸어가요</li>
+          <li>보스전 공격: <b>스페이스바</b> 또는 [공격] 버튼 · 피하기: <b>↓ / S</b> 또는 [피하기] 버튼</li>
+          <li>아이템 쓰기: 숫자키 <b>1~4</b> 또는 아이템 칸 클릭</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">🎁 보너스 아이템 (보스전에서 사용)</h3>
+        <table class="items-table">
+          <tr><td>🛡️</td><td><b>방패</b> (1라운드)</td><td>15초 동안 보스 공격을 모두 막아요</td></tr>
+          <tr><td>🍎</td><td><b>황금 사과</b> (1라운드)</td><td>하트를 모두 채워요</td></tr>
+          <tr><td>🏹</td><td><b>활과 화살</b> (2라운드)</td><td>화살 8발을 쏘아 큰 피해를 줘요</td></tr>
+          <tr><td>🧪</td><td><b>힘의 물약</b> (2라운드)</td><td>15초 동안 공격력이 2배!</td></tr>
+        </table>
+        <p class="goal" style="margin-top:12px">⚠ 보스가 빨갛게 번쩍이면 곧 공격해요. 그때 <b>피하기</b>를 누르면 피할 수 있어요!</p>
+        <div style="text-align:center;margin-top:8px"><canvas id="lobbyChar" width="120" height="130"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card wait-box">
+      <div class="jua" style="font-size:24px">선생님이 시작하기를 기다리는 중<span class="dots"></span></div>
+      <div class="goal">우리 모둠에 들어온 친구</div>
+      <div class="mates" id="lobbyMates"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 게임 -->
+<section id="play" class="screen hidden">
+  <div class="play-wrap">
+    <div class="stage">
+      <canvas id="cv" width="960" height="540"></canvas>
+      <div class="banner hidden" id="banner"></div>
+      <div class="big-msg hidden" id="bigMsg"><h2 id="bigTitle"></h2><p id="bigSub"></p></div>
+      <div class="boss-ctrl hidden" id="bossCtrl">
+        <button class="btn blue" id="dodgeBtn">⬇ 피하기</button>
+        <button class="btn red atk-wrap" id="atkBtn">⚔ 공격<span class="cool" id="coolBar"></span></button>
+      </div>
+    </div>
+    <div class="side">
+      <div class="card">
+        <div class="phase-title" id="phaseTitle"></div>
+        <div class="goal" id="goalText"></div>
+        <div class="prog" id="progMain"><i></i></div>
+        <div class="goal" id="bonusText"></div>
+        <div class="prog bonus" id="progBonus"><i></i></div>
+      </div>
+      <div class="card">
+        <h3>🎒 아이템</h3>
+        <div class="inv" id="inv"></div>
+        <div class="goal" id="invHint">보스전에서 숫자키 1~4로 사용</div>
+      </div>
+      <div class="card">
+        <h3 id="mateTitle">👥 우리 모둠</h3>
+        <div id="mateList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 결과 -->
+<section id="done" class="screen hidden">
+  <div class="done-wrap">
+    <h1 class="title" style="font-size:46px">🐉 드래곤을 물리쳤다!</h1>
+    <div class="rank-pop" id="myRank"></div>
+    <div class="card" style="margin-top:10px">
+      <h3 style="margin-top:0">🏆 모둠 순위</h3>
+      <table class="rank-table" id="rankTable"></table>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3 style="margin-top:0">🎁 승리 보상: 스킨을 하나 고르세요!</h3>
+      <div class="goal">고른 스킨은 다음 게임에서 내 캐릭터 모습이 돼요. (모두 이 게임을 위해 새로 만든 디자인이에요)</div>
+      <div class="skins" id="skins"></div>
+      <div class="goal" id="skinMsg" style="margin-top:10px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 문제 창 -->
+<div class="modal hidden" id="modal">
+  <div class="qbox" id="qbox">
+    <span class="qtag" id="qtag">문제</span>
+    <div class="qsvg" id="qsvg"></div>
+    <div class="qtext" id="qtext"></div>
+    <div class="qrow" id="qnum"><input id="qinput" type="text" inputmode="decimal" autocomplete="off" placeholder="답"><button class="btn green" id="qsubmit">확인</button></div>
+    <div class="choices hidden" id="qchoices"></div>
+    <div class="feedback" id="qfb"></div>
+    <div class="hint" id="qhint">답을 쓰고 Enter</div>
+  </div>
+</div>
+
+<div class="mode-tag" id="modeTag"></div>
+<script type="module" src="js/student.js"></script>
+</body>
+</html>

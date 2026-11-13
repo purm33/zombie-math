@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>좀비 수학 대작전 · 교사</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { padding: 16px; }
+  .top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+  .top h1 { margin: 0; font-size: 30px; color: #9cf06a; }
+  .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .unit-pick button { background: var(--panel2); color: var(--text); border: 2px solid var(--line); border-radius: 6px; padding: 10px 14px; font-size: 16px; font-weight: 700; }
+  .unit-pick button.on { background: var(--gold); color: #222; border-color: #fff; }
+  .unit-pick button:disabled { opacity: .5; cursor: default; }
+  .status { font-weight: 700; padding: 8px 14px; border-radius: 30px; background: var(--panel2); }
+  .groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .gcard { padding: 12px; }
+  .ghead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .ghead h2 { margin: 0; font-size: 24px; }
+  .badge { padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: 900; background: #445238; }
+  .badge.r1, .badge.r2 { background: #2f6b2f; } .badge.ravager { background: #8a3a2a; } .badge.dragon { background: #6b3fb0; } .badge.done { background: var(--gold); color: #222; }
+  table.ps { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.ps th { color: var(--muted); font-weight: 700; text-align: center; padding: 3px; border-bottom: 1px solid var(--line); }
+  table.ps td { text-align: center; padding: 4px 2px; border-bottom: 1px dashed #444a3c; }
+  .off { opacity: .4; }
+  .x { background: none; border: 0; color: #ff8a80; font-size: 15px; }
+  .hpbar { height: 12px; background: #3a1010; border-radius: 6px; overflow: hidden; margin: 6px 0; } .hpbar i { display: block; height: 100%; background: #e8443c; }
+  .gfoot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .rank { margin-top: 14px; }
+  .hint { color: var(--muted); font-size: 13px; }
+  @media (max-width: 1000px) { .groups { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1 class="jua">🧟 좀비 수학 대작전 · 교사 화면</h1>
+    <div class="bar">
+      <span class="status" id="status">불러오는 중</span>
+      <span class="hint" id="modeTag"></span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <div class="bar" style="justify-content:space-between">
+      <div class="bar">
+        <b>단원 고르기</b>
+        <div class="unit-pick bar" id="unitPick"></div>
+      </div>
+      <div class="bar">
+        <button class="btn green" id="startBtn">▶ 게임 시작</button>
+        <button class="btn gray" id="againBtn" title="입장한 학생은 그대로 두고 진행 상황만 지워요">↺ 다시 하기 (학생 유지)</button>
+        <button class="btn red" id="resetBtn" title="학생 입장 기록까지 모두 지워요">✖ 전체 초기화</button>
+      </div>
+    </div>
+    <div class="hint" style="margin-top:8px" id="urlHint"></div>
+  </div>
+
+  <div class="groups" id="groups"></div>
+
+  <div class="card rank">
+    <h3 style="margin-top:0">🏆 순위</h3>
+    <div id="rank" class="hint">아직 드래곤을 물리친 모둠이 없어요.</div>
+  </div>
+
+<script type="module" src="js/teacher.js"></script>
+</body>
+</html>
