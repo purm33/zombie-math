@@ -1,6 +1,14 @@
 // ===== 좀비 수학 대작전 설정 =====
 // 파이어베이스 설정: 비어 있으면 '체험 모드'(이 컴퓨터 한 대의 브라우저 탭끼리만 연결)로 동작합니다.
-export const firebaseConfig = null;
+export const firebaseConfig = {
+  apiKey: "AIzaSyDLski5YzYF3u1HU-S1B7c9SLTlB3w21uU",
+  authDomain: "zombie-math-c6ec8.firebaseapp.com",
+  databaseURL: "https://zombie-math-c6ec8-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "zombie-math-c6ec8",
+  storageBucket: "zombie-math-c6ec8.firebasestorage.app",
+  messagingSenderId: "497284640173",
+  appId: "1:497284640173:web:b9d6b73b08b683a029c524",
+};
 
 // 접속할 수 있는 학생 번호 (이 번호만 들어올 수 있어요)
 export const ALLOWED_NUMBERS = [
